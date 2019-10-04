@@ -1,0 +1,14 @@
+---
+- name: Installing and Starting docker daemon
+  shell: "{{ item }}"
+  with_items:
+   - sudo systemctl start docker 
+- name: Building docker image
+  script: build.sh
+
+- name: Running Docker containers
+  shell: sudo docker run -d -p 8081:8080 spring1
+
+- name: Checking Container status
+  shell: sudo docker ps
+

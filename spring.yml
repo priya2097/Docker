@@ -1,0 +1,7 @@
+---
+- name: Containerization of Spring Boot Application
+  hosts: localhost
+  become: yes
+  roles:
+    - docker
+

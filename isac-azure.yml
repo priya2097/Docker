@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  vars:
+    resource_group: resource
+    location: westus
+    web_app: application
+    mysqlserver_name: app-server
+    mysqldb_name: db-server
+    admin_username: adminvm
+    admin_password: Priya@12345678
+  tasks:
+   - name: creating a resource group
+     azure_rm_resourcegroup:
+      name: "{{ resource_group }}"
+      state: present
+      location: "{{ location }}"
+   - name: create App service on linux with java run time
+     azure_rm_webapp:
+      resource_group: "{{ resource_group }}"
+      name: "{{ web_app }}"
+      plan: 
+        resource_group: "{{ resource_group }}"
+        name: myappplan
+        sku: s1
+        number_of_workers: 1
+      frameworks:
+        - name: "java"
+          version: "1.8"
+          settings:
+            java_container:  tomcat 
+            java_container_version: 9.0
